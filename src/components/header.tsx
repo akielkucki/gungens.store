@@ -13,7 +13,7 @@ const Header = () => {
                     animate={{opacity: 1}}
                     transition={{duration: 0.5}}
                 >
-                    {storeConfig.name}<span className="text-zinc-500">.STORE</span>
+                    {storeConfig.name}<span className="text-zinc-500">.SHOP</span>
                 </motion.h1>
                 <motion.div
                     className="flex items-center space-x-4"
