@@ -5,11 +5,10 @@ import {useState, useEffect, JSX} from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ShoppingCart } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { categories } from '@/libs/productData';
 import React from 'react';
 import Footer from "@/components/footer";
-import {storeConfig} from "@/libs/storeConfig";
 import Navbar from "@/components/navbar";
 
 export default function HomePage(): JSX.Element {
