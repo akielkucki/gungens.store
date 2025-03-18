@@ -1,7 +1,7 @@
 // components/CheckoutContent.tsx
 'use client';
 
-import {useState, useEffect, JSX} from 'react';
+import React, {useState, useEffect, JSX} from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -16,6 +16,8 @@ import Image from 'next/image';
 import { getProductById, getCategoryName } from '@/libs/productData';
 import { Product } from '@/libs/productData';
 import GoldShimmerText from "@/components/ui/goldshimmertext";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 
 export default function CheckoutContent(): JSX.Element {
@@ -80,20 +82,7 @@ export default function CheckoutContent(): JSX.Element {
 
     return (
         <div className="min-h-screen bg-black text-white">
-            <header className="border-b border-zinc-800 py-6 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto flex justify-between items-center">
-                    <div className="flex items-center space-x-4">
-                        <Link href="/" className="text-2xl font-bold tracking-wider">
-                            BLVCK<span className="text-zinc-500">.STORE</span>
-                        </Link>
-                    </div>
-                    <div className="flex items-center space-x-4">
-                        <button className="p-2 rounded-full hover:bg-zinc-800 transition-colors">
-                            <ShoppingCart className="h-5 w-5" />
-                        </button>
-                    </div>
-                </div>
-            </header>
+            <Header />
 
             <div className="py-4 px-4 sm:px-6 lg:px-8 border-b border-zinc-800">
                 <div className="max-w-7xl mx-auto">
@@ -300,12 +289,7 @@ export default function CheckoutContent(): JSX.Element {
                 </div>
             </main>
 
-            <footer className="border-t border-zinc-800 py-12 px-4 sm:px-6 lg:px-8 mt-24">
-                <div className="max-w-7xl mx-auto text-center text-zinc-500 text-sm">
-                    <p>© 2025 BLVCK.STORE. All rights reserved.</p>
-                    <p className="mt-2">Payment methods secured by industry-standard encryption.</p>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }
