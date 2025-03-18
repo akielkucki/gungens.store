@@ -17,7 +17,6 @@ import { getProductById, getCategoryName } from '@/libs/productData';
 import { Product } from '@/libs/productData';
 import GoldShimmerText from "@/components/ui/goldshimmertext";
 import Footer from "@/components/footer";
-import {storeConfig} from "@/libs/storeConfig";
 import Navbar from "@/components/navbar";
 
 export default function CheckoutPage(): JSX.Element {
@@ -70,7 +69,7 @@ export default function CheckoutPage(): JSX.Element {
         return (
             <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
                 <h1 className="text-2xl mb-4">Product Not Found</h1>
-                <p className="mb-6">The product you're looking for doesn't exist.</p>
+                <p className="mb-6">The product you&#39;re looking for doesn&#39;t exist.</p>
                 <Link href="/" className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-zinc-200 transition-colors">
                     Return to Store
                 </Link>
