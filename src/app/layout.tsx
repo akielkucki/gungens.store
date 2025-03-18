@@ -21,11 +21,11 @@ export const metadata: Metadata = {
         title: "Gungens - Minecraft Server Webstore",
         description:
             "Discover exclusive in-game items, plugins, and resources for your Minecraft server at Gungens Webstore.",
-        url: "https://gungens.store",
+        url: "https://gungens.shop",
         siteName: "Gungens Webstore",
         images: [
             {
-                url: "https://gungens.store/og-image.jpg",
+                url: "https://gungens.shop/og-image.jpg",
                 width: 1200,
                 height: 630,
                 alt: "Gungens Webstore - Minecraft Items",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
         description:
             "Discover exclusive in-game items, plugins, and resources for your Minecraft server at Gungens Webstore.",
         creator: "@yourtwitterhandle", // Update if applicable
-        images: ["https://gungens.store/twitter-image.jpg"],
+        images: ["https://gungens.shop/twitter-image.jpg"],
     },
 };
 
@@ -60,10 +60,10 @@ export default function RootLayout({
                     "@context": "https://schema.org",
                     "@type": "WebSite",
                     "name": "Gungens Webstore",
-                    "url": "https://gungens.store",
+                    "url": "https://gungens.shop",
                     "potentialAction": {
                         "@type": "SearchAction",
-                        "target": "https://gungens.store/search?query={search_term_string}",
+                        "target": "https://gungens.shop/search?query={search_term_string}",
                         "query-input": "required name=search_term_string",
                     },
                 }),
