@@ -1,8 +1,8 @@
 // components/CheckoutContent.tsx
 'use client';
 
-import React, {useState, useEffect, JSX} from 'react';
-import { useParams } from 'next/navigation';
+import React, { useState, useEffect, JSX } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -18,16 +18,20 @@ import { Product } from '@/libs/productData';
 import GoldShimmerText from "@/components/ui/goldshimmertext";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import StripeCheckout from "@/components/stripecheckout";
+import StripeProvider from "@/components/stripeprovider";
 
 
 export default function CheckoutContent(): JSX.Element {
     const params = useParams();
+    const router = useRouter();
     const id = params.id as string;
 
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [selectedImage, setSelectedImage] = useState<number>(0);
     const [quantity, setQuantity] = useState<number>(1);
+    const [isCheckout, setIsCheckout] = useState<boolean>(false);
 
     // Get product based on ID from URL
     useEffect(() => {
@@ -56,6 +60,18 @@ export default function CheckoutContent(): JSX.Element {
             return (product.price * quantity).toFixed(2);
         }
         return '0.00';
+    };
+
+    // Handle buy now click
+    const handleBuyNow = () => {
+        setIsCheckout(true);
+    };
+
+    // Handle add to cart click
+    const handleAddToCart = () => {
+        // Here you could add to cart logic and redirect to cart page
+        // For now, we'll just go to checkout
+        setIsCheckout(true);
     };
 
     if (loading) {
@@ -158,135 +174,156 @@ export default function CheckoutContent(): JSX.Element {
                         )}
                     </div>
 
-                    {/* Right Column - Product Details */}
+                    {/* Right Column - Product Details or Checkout */}
                     <div>
-                        <div className="mb-6">
-                            <div className="flex items-center space-x-2 text-zinc-400 text-sm mb-2">
-                                <Link href="/" className="hover:text-white transition-colors">
-                                    Home
-                                </Link>
-                                <ChevronRight className="h-3 w-3" />
-                                <Link href={`/?category=${product.categoryId}`} className="hover:text-white transition-colors">
-                                    {getCategoryName(product.categoryId)}
-                                </Link>
-                                <ChevronRight className="h-3 w-3" />
-                                <span className="text-white">{product.name}</span>
-                            </div>
-
-                            <div className="flex items-start justify-between">
-                                <h1 className="text-3xl font-bold mb-2">
-                                    <GoldShimmerText>{product.name}</GoldShimmerText>
-                                </h1>
-                                <div className="bg-zinc-900 p-3 rounded-lg">
-                                    <Icon className="h-6 w-6" />
-                                </div>
-                            </div>
-
-                            {product.popular && (
-                                <div className="inline-block bg-white text-black text-xs font-bold py-1 px-3 tracking-wide mb-4">
-                                    MOST POPULAR
-                                </div>
-                            )}
-
-                            <p className="text-2xl font-bold mb-4">${product.price.toFixed(2)}</p>
-                            <p className="text-zinc-300 mb-6">{product.description}</p>
-                        </div>
-
-                        <div className="bg-zinc-900 rounded-lg p-6 mb-8">
-                            <h3 className="text-lg font-semibold mb-4">Quantity</h3>
-                            <div className="flex items-center space-x-4 mb-6">
+                        {isCheckout ? (
+                            <div>
+                                <h1 className="text-3xl font-bold mb-6">Checkout</h1>
+                                <StripeProvider>
+                                    <StripeCheckout product={product} quantity={quantity} />
+                                </StripeProvider>
                                 <button
-                                    onClick={() => handleQuantityChange(quantity - 1)}
-                                    className="bg-zinc-800 hover:bg-zinc-700 p-2 rounded-md"
-                                    disabled={quantity <= 1}
+                                    onClick={() => setIsCheckout(false)}
+                                    className="mt-4 text-zinc-400 hover:text-white transition-colors flex items-center"
                                 >
-                                    <span className="text-xl font-bold">-</span>
-                                </button>
-                                <span className="text-xl font-semibold">{quantity}</span>
-                                <button
-                                    onClick={() => handleQuantityChange(quantity + 1)}
-                                    className="bg-zinc-800 hover:bg-zinc-700 p-2 rounded-md"
-                                    disabled={quantity >= 10}
-                                >
-                                    <span className="text-xl font-bold">+</span>
+                                    <ChevronLeft className="h-4 w-4 mr-1" />
+                                    <span>Back to product details</span>
                                 </button>
                             </div>
+                        ) : (
+                            <>
+                                <div className="mb-6">
+                                    <div className="flex items-center space-x-2 text-zinc-400 text-sm mb-2">
+                                        <Link href="/" className="hover:text-white transition-colors">
+                                            Home
+                                        </Link>
+                                        <ChevronRight className="h-3 w-3" />
+                                        <Link href={`/?category=${product.categoryId}`} className="hover:text-white transition-colors">
+                                            {getCategoryName(product.categoryId)}
+                                        </Link>
+                                        <ChevronRight className="h-3 w-3" />
+                                        <span className="text-white">{product.name}</span>
+                                    </div>
 
-                            <div className="flex items-center justify-between mb-6">
-                                <span className="text-zinc-400">Subtotal:</span>
-                                <span className="font-bold">${calculateTotal()}</span>
-                            </div>
-
-                            <motion.button
-                                className="w-full bg-white text-black py-4 rounded-lg font-semibold text-center flex items-center justify-center"
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                disabled={product.comingSoon}
-                            >
-                                <ShoppingCart className="h-5 w-5 mr-2" />
-                                {product.comingSoon ? 'Coming Soon' : 'Add to Cart'}
-                            </motion.button>
-
-                            <motion.button
-                                className="w-full mt-3 bg-zinc-800 hover:bg-zinc-700 py-4 rounded-lg font-semibold text-center flex items-center justify-center"
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                disabled={product.comingSoon}
-                            >
-                                <CreditCardIcon className="h-5 w-5 mr-2" />
-                                {product.comingSoon ? 'Coming Soon' : 'Buy Now'}
-                            </motion.button>
-                        </div>
-
-                        {/* Features */}
-                        <div className="mb-8">
-                            <h3 className="text-xl font-bold mb-4">Features</h3>
-                            <ul className="space-y-3">
-                                {product.features.map((feature, i) => (
-                                    <motion.li
-                                        key={i}
-                                        className="flex items-start"
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.3, delay: i * 0.05 }}
-                                    >
-                                        <ChevronRight className="h-5 w-5 mr-2 flex-shrink-0 text-zinc-500" />
-                                        <span>{feature}</span>
-                                    </motion.li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Product Description */}
-                <div className="mt-16 border-t border-zinc-800 pt-12">
-                    <h2 className="text-2xl font-bold mb-6">Product Description</h2>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        <div>
-                            <p className="text-zinc-300 mb-8 leading-relaxed">{product.longDescription}</p>
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-bold mb-4">Benefits</h3>
-                            <ul className="space-y-4">
-                                {product.benefits.map((benefit, i) => (
-                                    <motion.li
-                                        key={i}
-                                        className="flex items-start"
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.3, delay: i * 0.1 }}
-                                    >
-                                        <div className="bg-zinc-900 p-2 rounded-full mr-3 flex-shrink-0">
-                                            <ArrowRight className="h-4 w-4" />
+                                    <div className="flex items-start justify-between">
+                                        <h1 className="text-3xl font-bold mb-2">
+                                            <GoldShimmerText>{product.name}</GoldShimmerText>
+                                        </h1>
+                                        <div className="bg-zinc-900 p-3 rounded-lg">
+                                            <Icon className="h-6 w-6" />
                                         </div>
-                                        <GoldShimmerText>{benefit}</GoldShimmerText>
-                                    </motion.li>
-                                ))}
-                            </ul>
-                        </div>
+                                    </div>
+
+                                    {product.popular && (
+                                        <div className="inline-block bg-white text-black text-xs font-bold py-1 px-3 tracking-wide mb-4">
+                                            MOST POPULAR
+                                        </div>
+                                    )}
+
+                                    <p className="text-2xl font-bold mb-4">${product.price.toFixed(2)}</p>
+                                    <p className="text-zinc-300 mb-6">{product.description}</p>
+                                </div>
+
+                                <div className="bg-zinc-900 rounded-lg p-6 mb-8">
+                                    <h3 className="text-lg font-semibold mb-4">Quantity</h3>
+                                    <div className="flex items-center space-x-4 mb-6">
+                                        <button
+                                            onClick={() => handleQuantityChange(quantity - 1)}
+                                            className="bg-zinc-800 hover:bg-zinc-700 p-2 rounded-md"
+                                            disabled={quantity <= 1}
+                                        >
+                                            <span className="text-xl font-bold">-</span>
+                                        </button>
+                                        <span className="text-xl font-semibold">{quantity}</span>
+                                        <button
+                                            onClick={() => handleQuantityChange(quantity + 1)}
+                                            className="bg-zinc-800 hover:bg-zinc-700 p-2 rounded-md"
+                                            disabled={quantity >= 10}
+                                        >
+                                            <span className="text-xl font-bold">+</span>
+                                        </button>
+                                    </div>
+
+                                    <div className="flex items-center justify-between mb-6">
+                                        <span className="text-zinc-400">Subtotal:</span>
+                                        <span className="font-bold">${calculateTotal()}</span>
+                                    </div>
+
+                                    <motion.button
+                                        onClick={handleAddToCart}
+                                        className="w-full bg-white text-black py-4 rounded-lg font-semibold text-center flex items-center justify-center"
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        disabled={product.comingSoon}
+                                    >
+                                        <ShoppingCart className="h-5 w-5 mr-2" />
+                                        {product.comingSoon ? 'Coming Soon' : 'Add to Cart'}
+                                    </motion.button>
+
+                                    <motion.button
+                                        onClick={handleBuyNow}
+                                        className="w-full mt-3 bg-zinc-800 hover:bg-zinc-700 py-4 rounded-lg font-semibold text-center flex items-center justify-center"
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        disabled={product.comingSoon}
+                                    >
+                                        <CreditCardIcon className="h-5 w-5 mr-2" />
+                                        {product.comingSoon ? 'Coming Soon' : 'Buy Now'}
+                                    </motion.button>
+                                </div>
+
+                                {/* Features */}
+                                <div className="mb-8">
+                                    <h3 className="text-xl font-bold mb-4">Features</h3>
+                                    <ul className="space-y-3">
+                                        {product.features.map((feature, i) => (
+                                            <motion.li
+                                                key={i}
+                                                className="flex items-start"
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ duration: 0.3, delay: i * 0.05 }}
+                                            >
+                                                <ChevronRight className="h-5 w-5 mr-2 flex-shrink-0 text-zinc-500" />
+                                                <span>{feature}</span>
+                                            </motion.li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
+
+                {!isCheckout && (
+                    <div className="mt-16 border-t border-zinc-800 pt-12">
+                        <h2 className="text-2xl font-bold mb-6">Product Description</h2>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                            <div>
+                                <p className="text-zinc-300 mb-8 leading-relaxed">{product.longDescription}</p>
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold mb-4">Benefits</h3>
+                                <ul className="space-y-4">
+                                    {product.benefits.map((benefit, i) => (
+                                        <motion.li
+                                            key={i}
+                                            className="flex items-start"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.3, delay: i * 0.1 }}
+                                        >
+                                            <div className="bg-zinc-900 p-2 rounded-full mr-3 flex-shrink-0">
+                                                <ArrowRight className="h-4 w-4" />
+                                            </div>
+                                            <GoldShimmerText>{benefit}</GoldShimmerText>
+                                        </motion.li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </main>
 
             <Footer />
