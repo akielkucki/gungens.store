@@ -22,7 +22,7 @@ import { stripeCheckout } from "@/components/services/checkout";
 
 export default function CheckoutContent(): JSX.Element {
     const params = useParams();
-    const router = useRouter();
+    useRouter();
     const id = params.id as string;
 
     const [product, setProduct] = useState<Product | null>(null);

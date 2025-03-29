@@ -5,7 +5,7 @@ import {useState, useEffect, JSX} from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Star, ShoppingBag, Gift, CreditCard, Shield, Award, Clock, Heart } from 'lucide-react';
+import { ChevronRight, Star, Shield, Award, Clock, Heart } from 'lucide-react';
 import { categories } from '@/libs/productData';
 import React from 'react';
 import Header from "@/components/header";
@@ -337,7 +337,7 @@ export default function StoreContent(): JSX.Element {
                             <div className="text-center mb-12">
                                 <h2 className="text-3xl font-bold mb-4">Why Choose Our Premium Services</h2>
                                 <p className="max-w-2xl mx-auto text-gray-600">
-                                    We're committed to providing the best experience for our players with premium features and exceptional support.
+                                    We&apos;re committed to providing the best experience for our players with premium features and exceptional support.
                                 </p>
                             </div>
 
@@ -391,7 +391,7 @@ export default function StoreContent(): JSX.Element {
                                 </div>
                                 <h2 className="text-3xl font-bold mb-4">What Our Players Say</h2>
                                 <p className="max-w-2xl mx-auto text-gray-600">
-                                    Don't just take our word for it - hear from our satisfied members about their experiences.
+                                    Don&apos;t just take our word for it - hear from our satisfied members about their experiences.
                                 </p>
                             </div>
 
@@ -415,7 +415,7 @@ export default function StoreContent(): JSX.Element {
                                                 />
                                             ))}
                                         </div>
-                                        <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+                                        <p className="text-gray-700 mb-6 italic">&ldquo;{testimonial.content}&ldquo;</p>
                                         <div className="flex items-center">
                                             <div className="w-10 h-10 rounded-full bg-gray-300 mr-3">
                                                 {/* Avatar image would go here */}
