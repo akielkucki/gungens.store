@@ -18,9 +18,7 @@ import { Product } from '@/libs/productData';
 import GoldShimmerText from "@/components/ui/goldshimmertext";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import StripeCheckout from "@/components/stripecheckout";
-import StripeProvider from "@/components/stripeprovider";
-
+import { stripeCheckout } from "@/components/services/checkout";
 
 export default function CheckoutContent(): JSX.Element {
     const params = useParams();
@@ -64,7 +62,11 @@ export default function CheckoutContent(): JSX.Element {
 
     // Handle buy now click
     const handleBuyNow = () => {
-        setIsCheckout(true);
+        stripeCheckout([{
+            name: product?.name || "",
+            price: product?.price || 0,
+            quantity: quantity
+        }]);
     };
 
     // Handle add to cart click
@@ -157,9 +159,8 @@ export default function CheckoutContent(): JSX.Element {
                                     <button
                                         key={image.id}
                                         onClick={() => setSelectedImage(index)}
-                                        className={`bg-zinc-900 rounded-md overflow-hidden relative aspect-square ${
-                                            selectedImage === index ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
-                                        }`}
+                                        className={`bg-zinc-900 rounded-md overflow-hidden relative aspect-square ${selectedImage === index ? 'ring-2 ring-white' : 'opacity-60 hover:opacity-100'
+                                            }`}
                                     >
                                         <Image
                                             src={image.src}
@@ -179,9 +180,6 @@ export default function CheckoutContent(): JSX.Element {
                         {isCheckout ? (
                             <div>
                                 <h1 className="text-3xl font-bold mb-6">Checkout</h1>
-                                <StripeProvider>
-                                    <StripeCheckout product={product} quantity={quantity} />
-                                </StripeProvider>
                                 <button
                                     onClick={() => setIsCheckout(false)}
                                     className="mt-4 text-zinc-400 hover:text-white transition-colors flex items-center"
