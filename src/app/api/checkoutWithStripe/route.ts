@@ -9,6 +9,7 @@ export async function POST(req: Request) {
         console.log("Received Body:", body);
 
         const { products } = body;
+        // expected products json
 
         if (!products || !Array.isArray(products)) {
             return NextResponse.json({ error: "Invalid products array", received: body }, { status: 400 });
