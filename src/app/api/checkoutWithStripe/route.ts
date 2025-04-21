@@ -28,8 +28,8 @@ export async function POST(req: Request) {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: "http://localhost:80/success",
-            cancel_url: "http://localhost:80/failed",
+            success_url: "http://localhost:3000/payment/complete?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url: "http://localhost:3000/payment/complete",
         });
 
         console.log("Stripe Session Created:", session.id);

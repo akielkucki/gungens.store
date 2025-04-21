@@ -32,6 +32,7 @@ export interface Product {
     comingSoon?: boolean;
     images: ProductImage[];
     benefits: string[];
+    commands: string[];
 }
 
 export interface Category {
@@ -41,8 +42,8 @@ export interface Category {
     products: Product[];
 }
 
-// All product data
-export const products: Product[] = [
+const sale = 0.25;
+const products: Product[] = [
     // Ranks
     {
         id: 1,
@@ -60,9 +61,9 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'VIP rank badge showcase' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'VIP exclusive chat colors' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'VIP server access' }
+            { id: 1, src: '/beans.png', alt: 'VIP rank badge showcase' },
+            { id: 2, src: '/beans.png', alt: 'VIP exclusive chat colors' },
+            { id: 3, src: '/beans.png', alt: 'VIP server access' }
         ],
         benefits: [
             'Stand out in chat with custom colors',
@@ -70,6 +71,12 @@ export const products: Product[] = [
             'Express yourself with unique emotes',
             'Show off your status with a VIP badge',
             'Get priority support from our team'
+        ],
+        commands: [
+            "lp user %user% parent add vip",
+            "pex user %user% add vip.badge",
+            "pex user %user% add vip.chat.color",
+            "emotes add %user% vip_pack"
         ]
     },
     {
@@ -89,9 +96,9 @@ export const products: Product[] = [
         ],
         popular: true,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'MVP rank showcase' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'MVP exclusive cosmetics' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Monthly bonus items showcase' }
+            { id: 1, src: '/beans.png', alt: 'MVP rank showcase' },
+            { id: 2, src: '/beans.png', alt: 'MVP exclusive cosmetics' },
+            { id: 3, src: '/beans.png', alt: 'Monthly bonus items showcase' }
         ],
         benefits: [
             'Skip the waiting lines with priority queue',
@@ -100,6 +107,13 @@ export const products: Product[] = [
             'Access all VIP perks',
             'Enjoy advanced cosmetic options',
             'Get recognized with MVP tag in chat'
+        ],
+        commands: [
+            "lp user %user% parent add mvp",
+            "pex user %user% add mvp.joinmsg",
+            "pex user %user% add priority.queue",
+            "crate give %user% monthly_bonus 1",
+            "cosmetics give %user% mvp_pack"
         ]
     },
     {
@@ -120,9 +134,9 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'Legend rank animated badge' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Custom player auras' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Legend exclusive game modes' }
+            { id: 1, src: '/beans.png', alt: 'Legend rank animated badge' },
+            { id: 2, src: '/beans.png', alt: 'Custom player auras' },
+            { id: 3, src: '/beans.png', alt: 'Legend exclusive game modes' }
         ],
         benefits: [
             'Captivate others with animated name tags',
@@ -131,6 +145,14 @@ export const products: Product[] = [
             'Enjoy exclusive game modes only for Legends',
             'Get dedicated support with priority assistance',
             'Access all MVP and VIP benefits'
+        ],
+        commands: [
+            "lp user %user% parent add legend",
+            "pex user %user% add legend.animated_tags",
+            "aura set %user% custom",
+            "beta add %user% all",
+            "pex user %user% add gamemode.legend",
+            "support add %user% concierge"
         ]
     },
     {
@@ -152,10 +174,10 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'TITAN rank showcase' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Ultimate cosmetic bundle' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Developer chat access' },
-            { id: 4, src: '/api/placeholder/600/400', alt: 'Custom command interface' }
+            { id: 1, src: '/beans.png', alt: 'TITAN rank showcase' },
+            { id: 2, src: '/beans.png', alt: 'Ultimate cosmetic bundle' },
+            { id: 3, src: '/beans.png', alt: 'Developer chat access' },
+            { id: 4, src: '/beans.png', alt: 'Custom command interface' }
         ],
         benefits: [
             'Shape the future of the game with direct developer access',
@@ -164,6 +186,14 @@ export const products: Product[] = [
             'Enjoy the most comprehensive cosmetic collection',
             'Have your feature suggestions prioritized',
             'Access all benefits from Legend, MVP, and VIP ranks'
+        ],
+        commands: [
+            "lp user %user% parent add titan",
+            "pex user %user% add devchat.access",
+            "cmd create %user% custom_command",
+            "events add %user% titan_monthly",
+            "feedback add %user% priority",
+            "cosmetics give %user% titan_ultimate_bundle"
         ]
     },
 
@@ -184,9 +214,9 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'VIP crate opening animation' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'VIP rare weapon skins' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Basic armor sets' }
+            { id: 1, src: '/beans.png', alt: 'VIP crate opening animation' },
+            { id: 2, src: '/beans.png', alt: 'VIP rare weapon skins' },
+            { id: 3, src: '/beans.png', alt: 'Basic armor sets' }
         ],
         benefits: [
             'Customize your weapons with rare skins',
@@ -194,6 +224,10 @@ export const products: Product[] = [
             'Express yourself with new emotes',
             'Chance to obtain rare items normally difficult to find',
             'Affordable entry into our crate system'
+        ],
+        commands: [
+            "crate key give %user% vip 1",
+            "crate create %user% vip"
         ]
     },
     {
@@ -213,10 +247,10 @@ export const products: Product[] = [
         ],
         popular: true,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'MVP crate key' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Energy Pistol' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Rare weapon attachments' },
-            { id: 4, src: '/api/placeholder/600/400', alt: 'Uncommon armor sets' }
+            { id: 1, src: '/beans.png', alt: 'MVP crate key' },
+            { id: 2, src: '/beans.png', alt: 'Energy Pistol' },
+            { id: 3, src: '/beans.png', alt: 'Rare weapon attachments' },
+            { id: 4, src: '/beans.png', alt: 'Uncommon armor sets' }
         ],
         benefits: [
             'Equip the powerful Energy Pistol for an advantage in combat',
@@ -224,6 +258,10 @@ export const products: Product[] = [
             'Improve your defense with uncommon armor',
             'Stand out with exclusive emotes',
             'Higher chance for epic items'
+        ],
+        commands: [
+            "crate key give %user% mvp 1",
+            "crate create %user% mvp"
         ]
     },
     {
@@ -243,10 +281,10 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'Legend crate key' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Energy Assault Rifle' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Kevlar II armor' },
-            { id: 4, src: '/api/placeholder/600/400', alt: 'Animated weapon skins' }
+            { id: 1, src: '/beans.png', alt: 'Legend crate key' },
+            { id: 2, src: '/beans.png', alt: 'Energy Assault Rifle' },
+            { id: 3, src: '/beans.png', alt: 'Kevlar II armor' },
+            { id: 4, src: '/beans.png', alt: 'Animated weapon skins' }
         ],
         benefits: [
             'Dominate with the powerful Energy Assault Rifle',
@@ -255,6 +293,10 @@ export const products: Product[] = [
             'Showcase your status with exclusive pets',
             'High chance for legendary items',
             'Access to rare gameplay modifications'
+        ],
+        commands: [
+            "crate key give %user% legend 1",
+            "crate create %user% legend"
         ]
     },
     {
@@ -275,11 +317,11 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'TITAN crate key' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Plasma Rifle' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Energy Assault Rifle' },
-            { id: 4, src: '/api/placeholder/600/400', alt: 'Kevlar III armor set' },
-            { id: 5, src: '/api/placeholder/600/400', alt: 'Particle effects showcase' }
+            { id: 1, src: '/beans.png', alt: 'TITAN crate key' },
+            { id: 2, src: '/beans.png', alt: 'Plasma Rifle' },
+            { id: 3, src: '/beans.png', alt: 'Energy Assault Rifle' },
+            { id: 4, src: '/beans.png', alt: 'Kevlar III armor set' },
+            { id: 5, src: '/beans.png', alt: 'Particle effects showcase' }
         ],
         benefits: [
             'Dominate with the powerful Plasma Rifle',
@@ -288,6 +330,10 @@ export const products: Product[] = [
             'Stand out with exclusive particle effects',
             'Showcase your status with legendary weapon skins',
             'Guaranteed to receive at least one legendary item'
+        ],
+        commands: [
+            "crate key give %user% titan 1",
+            "crate create %user% titan"
         ]
     },
 
@@ -308,8 +354,8 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'Minor offense unban process' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Chat restrictions removal' }
+            { id: 1, src: '/beans.png', alt: 'Minor offense unban process' },
+            { id: 2, src: '/beans.png', alt: 'Chat restrictions removal' }
         ],
         benefits: [
             'Get back to playing immediately',
@@ -317,6 +363,12 @@ export const products: Product[] = [
             'Removal of chat restrictions',
             'Instant automatic processing',
             'No waiting period for appeals'
+        ],
+        commands: [
+            "unban %user% minor_offense",
+            "mute remove %user%",
+            "warn clear %user% minor",
+            "history clear %user% minor_infraction"
         ]
     },
     {
@@ -335,9 +387,9 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'Major offense appeal process' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Admin review dashboard' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Warning status badge' }
+            { id: 1, src: '/beans.png', alt: 'Major offense appeal process' },
+            { id: 2, src: '/beans.png', alt: 'Admin review dashboard' },
+            { id: 3, src: '/beans.png', alt: 'Warning status badge' }
         ],
         benefits: [
             'Second chance for significant violations',
@@ -345,6 +397,12 @@ export const products: Product[] = [
             'Opportunity to explain circumstances',
             'Priority processing compared to free appeals',
             'Clear path to restore account standing'
+        ],
+        commands: [
+            "appeal create %user% major_offense",
+            "queue add %user% admin_review priority",
+            "status set %user% warning_probation",
+            "notify admin %user% appeal_submitted"
         ]
     },
 
@@ -364,8 +422,8 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: '500 tokens visualization' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Marketplace shopping with tokens' }
+            { id: 1, src: '/beans.png', alt: '500 tokens visualization' },
+            { id: 2, src: '/beans.png', alt: 'Marketplace shopping with tokens' }
         ],
         benefits: [
             'Quick access to in-game marketplace',
@@ -373,6 +431,11 @@ export const products: Product[] = [
             'Instant delivery to your account',
             'Affordable entry option',
             'Use for limited-time offers'
+        ],
+        commands: [
+            "tokens add %user% 500",
+            "shop access grant %user%",
+            "notify %user% tokens_added 500"
         ]
     },
     {
@@ -391,9 +454,9 @@ export const products: Product[] = [
         ],
         popular: true,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: '1,200 tokens pack' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Bonus tokens visualization' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Rare marketplace items' }
+            { id: 1, src: '/beans.png', alt: '1,200 tokens pack' },
+            { id: 2, src: '/beans.png', alt: 'Bonus tokens visualization' },
+            { id: 3, src: '/beans.png', alt: 'Rare marketplace items' }
         ],
         benefits: [
             'Get 10% more tokens as a bonus',
@@ -401,6 +464,11 @@ export const products: Product[] = [
             'More purchasing power for premium cosmetics',
             'Instant delivery to your account',
             'Best value for regular players'
+        ],
+        commands: [
+            "tokens add %user% 1200",
+            "shop access grant %user% rare",
+            "notify %user% tokens_added 1200"
         ]
     },
     {
@@ -419,9 +487,9 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: '2,600 tokens pack' },
-            { id: 2, src: '/api/placeholder/600/400', alt: '15% bonus visualization' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Epic marketplace items' }
+            { id: 1, src: '/beans.png', alt: '2,600 tokens pack' },
+            { id: 2, src: '/beans.png', alt: '15% bonus visualization' },
+            { id: 3, src: '/beans.png', alt: 'Epic marketplace items' }
         ],
         benefits: [
             'Enjoy a generous 15% token bonus',
@@ -429,6 +497,11 @@ export const products: Product[] = [
             'Substantial buying power for premium content',
             'Instant delivery to your account',
             'Great value for dedicated players'
+        ],
+        commands: [
+            "tokens add %user% 2600",
+            "shop access grant %user% epic",
+            "notify %user% tokens_added 2600"
         ]
     },
     {
@@ -447,9 +520,9 @@ export const products: Product[] = [
         ],
         popular: false,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: '5,500 tokens pack' },
-            { id: 2, src: '/api/placeholder/600/400', alt: '20% bonus visualization' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Legendary marketplace items' }
+            { id: 1, src: '/beans.png', alt: '5,500 tokens pack' },
+            { id: 2, src: '/beans.png', alt: '20% bonus visualization' },
+            { id: 3, src: '/beans.png', alt: 'Legendary marketplace items' }
         ],
         benefits: [
             'Receive our largest bonus of 20% extra tokens',
@@ -458,6 +531,12 @@ export const products: Product[] = [
             'Instant delivery to your account',
             'Best value option for serious players',
             'Ability to purchase multiple premium items'
+        ],
+        commands: [
+            "tokens add %user% 5500",
+            "shop access grant %user% legendary",
+            "cosmetics gift %user% welcome_bundle",
+            "notify %user% tokens_added 5500"
         ]
     },
 
@@ -480,10 +559,10 @@ export const products: Product[] = [
         popular: false,
         comingSoon: true,
         images: [
-            { id: 1, src: '/api/placeholder/600/400', alt: 'Game bank interface' },
-            { id: 2, src: '/api/placeholder/600/400', alt: 'Remote banking app' },
-            { id: 3, src: '/api/placeholder/600/400', alt: 'Transaction history view' },
-            { id: 4, src: '/api/placeholder/600/400', alt: 'Interest earnings visualization' }
+            { id: 1, src: '/beans.png', alt: 'Game bank interface' },
+            { id: 2, src: '/beans.png', alt: 'Remote banking app' },
+            { id: 3, src: '/beans.png', alt: 'Transaction history view' },
+            { id: 4, src: '/beans.png', alt: 'Interest earnings visualization' }
         ],
         benefits: [
             'Manage your finances from anywhere',
@@ -492,12 +571,19 @@ export const products: Product[] = [
             'Track all your transactions in one place',
             'Transfer money safely to other players',
             'Receive financial reports and insights'
+        ],
+        commands: [
+            "bank account create %user%",
+            "bank features enable %user% all",
+            "subscription add %user% bank monthly",
+            "interest setup %user% 5_percent",
+            "remote access grant %user% bank"
         ]
     }
 ];
 
 // All categories with their associated products
-export const categories: Category[] = [
+const categories: Category[] = [
     {
         id: 'ranks',
         name: 'Ranks',
@@ -529,6 +615,24 @@ export const categories: Category[] = [
         products: products.filter(product => product.categoryId === 'bank')
     }
 ];
+const featuredProducts = [
+    {
+        id: 101,
+        name: "Limited Edition Titan Package",
+        description: "Our most exclusive offering with premium benefits",
+        discount: "25% OFF",
+        endDate: "April 31, 2025",
+        backgroundImage: "/images/gold-package-bg.jpeg"
+    },
+    {
+        id: 102,
+        name: "Spring Promotion Bundle",
+        description: "Special seasonal package with bonus tokens",
+        discount: "30% OFF",
+        endDate: "May 15, 2025",
+        backgroundImage: "/images/spring-bundle-bg.png"
+    }
+];
 
 // Helper functions
 export const getProductById = (id: number): Product | undefined => {
@@ -543,3 +647,7 @@ export const getCategoryName = (categoryId: string): string => {
     const category = getCategoryById(categoryId);
     return category ? category.name : 'Unknown Category';
 };
+export const getDiscountedPrice = (price: number): number =>
+    parseFloat((price * (1 - sale)).toFixed(2));
+
+export {products, sale, categories, featuredProducts};
