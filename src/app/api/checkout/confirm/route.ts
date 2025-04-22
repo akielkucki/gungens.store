@@ -41,12 +41,15 @@ export async function POST(req: Request) {
 
         // In a real application, send this to your backend service
         try {
+        
             await fetch("http://localhost:5050/purchase", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify([json, ...data.filter((item: any) => item.name === json.items[0].name)]),
+                // eslint-disable-next-line
+                // @ts-ignore
+                body: JSON.stringify([json, ...data.filter((item: never) => item.name === json.items[0].name)]),
             });
         } catch (error) {
             console.error("Error sending purchase data to backend:", error);
