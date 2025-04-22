@@ -1,10 +1,8 @@
 // app/api/checkout/confirm/route.ts
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { getProductById, products } from "@/libs/productData";
-
-const stripe = new Stripe(process.env.SECRET_KEY!, { apiVersion: "2025-02-24.acacia" });
-
+import { products } from "@/libs/productData";
+new Stripe(process.env.SECRET_KEY!, { apiVersion: "2025-02-24.acacia" });
 export async function POST(req: Request) {
     try {
         const {
