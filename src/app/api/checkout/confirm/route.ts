@@ -47,7 +47,7 @@ export async function POST(req: Request) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                // eslint-disable-next-line
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 body: JSON.stringify([json, ...data.filter((item: never) => item.name === json.items[0].name)]),
             });
