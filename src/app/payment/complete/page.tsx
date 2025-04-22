@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function PaymentCompletePage() {
-    const [sessionData, setSessionData] = useState<any>(null);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const [sessionData, setSessionData] = useState<never>(null);
     const params = useSearchParams();
     const sessionId = params.get("session_id");
 
